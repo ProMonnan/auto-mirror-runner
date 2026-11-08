@@ -1,0 +1,30 @@
+name: Organization Mirror Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror Repositories
+        run: |
+          # Function to safely mirror and clean up
+          mirror_repo() {
+            SOURCE_URL=$1
+            DEST_URL=$2
+            
+            echo "Mirroring $SOURCE_URL..."
+            git clone --mirror "$SOURCE_URL" temp_mirror
+            cd temp_mirror
+            git push --mirror "$DEST_URL"
+            cd ..
+            rm -rf temp_mirror
+          }
+          
+          # --- ADD YOUR REPOSITORIES HERE ---
+          # Format: mirror_repo "Public_Repo_URL" "Your_Org_Repo_URL_With_Token"
+          
+          mirror_repo "https://github.com/kaomei/stickman-video-director" "https://${{ secrets.GH_PAT }}@github.com/Sahal-Project-Archives/stickman-video-director.git"
