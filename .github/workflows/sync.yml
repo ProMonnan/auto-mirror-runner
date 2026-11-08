@@ -27,4 +27,4 @@ jobs:
           # --- ADD YOUR REPOSITORIES HERE ---
           # Format: mirror_repo "Public_Repo_URL" "Your_Org_Repo_URL_With_Token"
           
-          mirror_repo "https://github.com/kaomei/stickman-video-director" "https://${{ secrets.GH_PAT }}@github.com/Sahal-Project-Archives/stickman-video-director.git"
+          mirror_repo "https://github.com/kaomei/stickman-video-director.git" "https://${{ secrets.GH_PAT }}@github.com/Sahal-Project-Archives/stickman-video-director.git"
