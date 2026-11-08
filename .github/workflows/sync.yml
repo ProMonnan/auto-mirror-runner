@@ -12,7 +12,6 @@ jobs:
       - name: Mirror Repositories
         run: |
           # Function to safely mirror and clean up
-# Function to safely mirror and clean up
           mirror_repo() {
             SOURCE_URL=$1
             DEST_URL=$2
