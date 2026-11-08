@@ -12,6 +12,7 @@ jobs:
       - name: Mirror Repositories
         run: |
           # Function to safely mirror and clean up
+# Function to safely mirror and clean up
           mirror_repo() {
             SOURCE_URL=$1
             DEST_URL=$2
@@ -19,6 +20,10 @@ jobs:
             echo "Mirroring $SOURCE_URL..."
             git clone --mirror "$SOURCE_URL" temp_mirror
             cd temp_mirror
+            
+            # Delete hidden pull request refs so GitHub doesn't reject the push
+            git for-each-ref --format 'delete %(refname)' refs/pull | git update-ref --stdin
+            
             git push --mirror "$DEST_URL"
             cd ..
             rm -rf temp_mirror
